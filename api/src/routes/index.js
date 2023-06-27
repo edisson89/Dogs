@@ -7,7 +7,7 @@ const routerDog = require('./getDogs')
 // Ejemplo: const authRouter = require('./auth.js');
 
 router.use("/user",routerUser)
-router.use("/data",routerDog)
+router.use("/dogs",routerDog)
 
 
 // Configurar los routers

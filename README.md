@@ -139,14 +139,14 @@ Deberás crear dos modelos para tu base de datos. Una será para las razas de pe
 Para esta parte deberás construir un servidor utilizando **NodeJS** y **Express**. Tendrás que conectarlo con tu base de datos mediante **Sequelize**.
 
 Tu servidor deberá contar con las siguientes rutas:
-
+http://localhost:3001/dogdata/dogs/dogs
 #### **📍 GET | /dogs**
 
 -  Obtiene un arreglo de objetos, donde cada objeto es la raza de un perro.
-
+http://localhost:3001/dogdata/dogs/:idRaza
 #### **📍 GET | /dogs/:idRaza**
 
--  Esta ruta obtiene el detalle de una raza específica. Es decir que devuelve un objeto con la información pedida en el detalle de un perro.
+-  Esta ruta obtiene el detalle de una raza específica. Es decir que de 
 -  La raza es recibida por parámetro (ID).
 -  Tiene que incluir los datos de los temperamentos asociadas a esta raza.
 -  Debe funcionar tanto para los perros de la API como para los de la base de datos.
