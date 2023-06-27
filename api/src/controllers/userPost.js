@@ -10,21 +10,21 @@ const userPost = async (req, res) => {
         password,
       };
 
-      const [usser, created] = await User.findOrCreate({
+      const [user, created] = await User.findOrCreate({
         where: { email },
         defaults: { email, password },
       });
-      
+
       if (created) {
-        res.status(200).json(userCreate);
+        res.status(201).json(userCreate);
       } else {
-        res.status(204).json({ user: `The ${usser.email} exist already` });
+        res.status(409).json({message:'The user exist already'} );
       }
     } else {
       res.status(400).json({ user: "Faltan datos" });
     }
   } catch (error) {
-    res.status(404).json({ error: error.message });
+    res.status(404).json({ error: 'error.message' });
   }
 };
 module.exports = userPost;
