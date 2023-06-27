@@ -5,7 +5,7 @@ const getDogData = require('../controllers/obtenerDogs')
 const getDog = require('../controllers/dogGet')
 
 
-routerDog.get("/", getDogData)
-routerDog.get("/:id", getDog)
+routerDog.get("/dogs", getDogData)
+routerDog.get("/:idRaza", getDog)
 
 module.exports = routerDog
