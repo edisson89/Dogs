@@ -8,18 +8,20 @@ module.exports = (sequelize) => {
       type: DataTypes.JSONB,
       allowNull: true,
     },
-      height: {
-        type: DataTypes.JSONB,
-        allowNull: true,
-      },
-      id: {
+    height: {
+      type: DataTypes.JSONB,
+      allowNull: true,
+    },
+    id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      allowNull: false,
+      allowNull: true,
+      defaultalue: 1000,
+      autoIncrement: true,
     },
     name: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     bred_for: {
       type: DataTypes.STRING,
@@ -34,6 +36,10 @@ module.exports = (sequelize) => {
       allowNull: true,
     },
     temperament: {
+      type: DataTypes.JSON,
+      allowNull: true,
+    },
+    origin: {
       type: DataTypes.STRING,
       allowNull: true,
     },
@@ -41,11 +47,9 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: true,
     },
-    
     image: {
       type: DataTypes.JSONB,
       allowNull: true,
     },
-
   });
 };
