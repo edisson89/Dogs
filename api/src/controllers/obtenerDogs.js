@@ -8,11 +8,12 @@ async function getDogData(req, res) {
   
   try {
     const { data } = await axios.get(URL);
-    const result = data.slice(0, 200);
-    if (data) {
+    const result = await data.slice(0,200);
+    if (result) {
+      
       // Guarda los datos en la base de datos utilizando Sequelize
      
-      await Dog.bulkCreate({ result });
+      await Dog.bulkCreate(result);
       return res.status(200).json({ result });
     }
   } catch (error) {
