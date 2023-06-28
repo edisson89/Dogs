@@ -151,6 +151,7 @@ http://localhost:3001/dogdata/dogs/:idRaza
 -  Tiene que incluir los datos de los temperamentos asociadas a esta raza.
 -  Debe funcionar tanto para los perros de la API como para los de la base de datos.
 
+http://localhost:3001/dogdata/dogs/name
 #### **📍 GET | /dogs/name?="..."**
 
 -  Esta ruta debe obtener todas aquellas razas de perros que coinciden con el nombre recibido por query. (No es necesario que sea una coincidencia exacta).
@@ -158,6 +159,7 @@ http://localhost:3001/dogdata/dogs/:idRaza
 -  Si no existe la raza, debe mostrar un mensaje adecuado.
 -  Debe buscar tanto los de la API como los de la base de datos.
 
+http://localhost:3001/dogdata/dogs/dogs
 #### **📍 POST | /dogs**
 
 -  Esta ruta recibirá todos los datos necesarios para crear un nuevo perro y relacionarlo con los temperamentos asociados.
