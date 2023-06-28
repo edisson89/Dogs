@@ -1,0 +1,25 @@
+.nav {
+    display: flex;
+    padding:2% ;
+    justify-content: space-between;
+    height: 5rem;
+    align-items: center;
+    align-content: center;
+    background-image: linear-gradient(
+    180deg,
+    #63c84e 0,
+    #3b735d 16.67%,
+    #15a436 33.33%,
+    #73c18c 50%,
+    #68927b 66.67%,
+    #d2b74d 83.33%,
+    #4cf10b 100%
+  );
+
+}
+navlink{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+   
+}
