@@ -10,6 +10,7 @@ router.use("/user",routerUser)
 router.use("/dogs",routerDog)
 
 
+
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
 
