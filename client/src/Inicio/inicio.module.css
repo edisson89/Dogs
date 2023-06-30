@@ -1,0 +1,21 @@
+.inicio{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 100vh;
+    background-image:  linear-gradient(rgba(0, 0, 255, 0.5), rgba(255, 255, 0, 0.5)),
+     url('../../../dogs.jpg');
+}
+.button{
+    width: 10rem;
+    margin-bottom: 46%;
+    font-size:larger;
+    border-radius:33px;
+    box-shadow:  inset 0 -3em 3em rgba(0,0,0,0.1),
+    0 0  0 2px rgb(255,255,255),
+    0.3em 0.3em 1em rgba(0,0,0,0.3);
+}
+.button:hover {
+    background: rgb(106, 49, 128);
+  }
