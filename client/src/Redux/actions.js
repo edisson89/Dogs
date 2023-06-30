@@ -1,29 +1,32 @@
-import {
-    ADD_FAV,
-    REMOVE_FAV,
-    ORDER,
-    FILTER,
-    RESET,
-    ADD_HOME,
-    REMOVE_HOME,
-    EDIT_FAV,
-    ADD_DATA,
-    REMOVE_DATA,
-  } from "./action.types";
-  import axios from "axios"
-  
-  export function addHome(data) {
-    return {
-      type: ADD_HOME,
-      payload: data,
-    };
-  }
-  export function removeHome(id) {
-    return {
-      type: REMOVE_HOME,
-      payload: id,
-    };
-  }
+import { ADD_DATA, ADD_HOME, REMOVE_DATA, REMOVE_HOME } from "./actionsTypes.js";
+//import axios from "axios"
+
+export function addHome(id) {
+  return {
+    type: ADD_HOME,
+    payload: id,
+  };
+}
+export function removeHome(id) {
+  return {
+    type: REMOVE_HOME,
+    payload: id,
+  };
+}
+
+export function addData(data) {
+  return {
+    type: ADD_DATA,
+    payload: data,
+  };
+}
+export function removeData(id) {
+  return {
+    type: REMOVE_DATA,
+    payload: id,
+  };
+}
+/*
   export function addData(data) {
     return {
       type: ADD_DATA,
@@ -86,3 +89,4 @@ import {
       payload: id,
     };
   }
+*/
