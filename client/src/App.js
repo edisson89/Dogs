@@ -8,6 +8,7 @@ import Form from "./Form Page";
 import Detail from "./Detail";
 import About from "./About";
 import Favorites from "./Favorites/favorites";
+import Inicio from "./Inicio";
 
 function App() {
   const [access, setAccess] = useState(true);
@@ -44,6 +45,7 @@ function App() {
       )}
 
       <Routes>
+      <Route path="/inicio" element={<Inicio />}></Route>
         <Route path="/home" element={<Home />}></Route>
         <Route path="/form" element={<Form />}></Route>
         <Route path="/about" element={<About />}></Route>
