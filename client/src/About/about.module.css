@@ -1,0 +1,9 @@
+.about{
+    display: flex;
+    flex-direction: column ;
+    font-size: larger;
+    padding: auto;
+    margin: 5%;
+    justify-content: center;
+    background-image:radial-gradient(rgb(79, 170, 140),rgb(102, 177, 45));
+}
