@@ -1,4 +1,4 @@
-import { ADD_DATA, ADD_HOME, REMOVE_DATA, REMOVE_HOME } from "./actionsTypes.js";
+import { ADD_DATA, ADD_HOME, FILTER, ORDER, REMOVE_DATA, REMOVE_HOME, RESET } from "./actionsTypes.js";
 //import axios from "axios"
 
 export function addHome(id) {
@@ -26,19 +26,25 @@ export function removeData(id) {
     payload: id,
   };
 }
+export function order(order) {
+  return {
+    type: ORDER,
+    payload: order,
+  };
+}
+export function filter(name) {
+  return {
+    type: FILTER,
+    payload: name,
+  };
+}
+export function reset() {
+  return {
+    type: RESET,
+  };
+}
 /*
-  export function addData(data) {
-    return {
-      type: ADD_DATA,
-      payload: data,
-    };
-  }
-  export function removeData(id) {
-    return {
-      type: REMOVE_DATA,
-      payload: id,
-    };
-  }
+ 
   
   export function addFav(char) {
     return function (dispatch) {
@@ -66,23 +72,7 @@ export function removeData(id) {
     }
     
   }
-  export function order(order) {
-    return {
-      type: ORDER,
-      payload: order,
-    };
-  }
-  export function filter(gender) {
-    return {
-      type: FILTER,
-      payload: gender,
-    };
-  }
-  export function reset() {
-    return {
-      type: RESET,
-    };
-  }
+  
   export function edit_fav(id) {
     return {
       type: EDIT_FAV,
