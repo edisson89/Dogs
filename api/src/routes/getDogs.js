@@ -9,10 +9,10 @@ const dogPost = require('../controllers/dogPost')
 
 
 
-routerDog.get("/dogs", getDogData)
-routerDog.get("/:idRaza", getDogRaza)
 routerDog.get("/name", getDogName)
-routerDog.post("/dogs", dogPost)
+routerDog.get("/:idRaza", getDogRaza)
+routerDog.get("/", getDogData)
+routerDog.post("/", dogPost)
 
 
 
