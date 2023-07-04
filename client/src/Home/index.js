@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import styles from "./home.module.css";
 import axios from "axios";
-import { addData, addHome } from "../Redux/actions.js";
+import { addData, addHome, filter, order, reset } from "../Redux/actions.js";
 import { useDispatch, useSelector } from "react-redux";
 import CardDog from "../CardDog";
+ 
 
 const Home = () => {
   const [id, setId] = useState("");
+  const [loading,setLoading]= useState(false)
   const [localDogs, setlocalDogs] = useState();
   const dispatch = useDispatch();
   const dogs = useSelector((state) => state.home);
@@ -22,16 +24,18 @@ const Home = () => {
     async function onData() {
       try {
         const { data } = await axios.get(
-          "http://localhost:3001/dogdata/dogs/dogs");
-
+          "http://localhost:3001/dogdata/dogs"
+        );
+        setLoading(true)
         setlocalDogs(data.result);
-
         dispatch(addData(data.result));
+        setLoading(false)
       } catch (error) {
         alert(error);
       }
     }
     onData();
+    
   }, [localDogs, dispatch]);
 
   //Add dogs to home por id
@@ -40,17 +44,52 @@ const Home = () => {
       let { data } = await axios.get(
         `http://localhost:3001/dogdata/dogs/${id}`
       );
-
-      dispatch(addHome(data));
+        console.log(data.dbDog)
+      dispatch(addHome(data.dbDog));
     } catch (error) {
       alert(error);
     }
   }
-
+  
+  function handleOrder(e) {
+    e.preventDefault();
+    const { value } = e.target;
+    dispatch(order(value));
+  }
+  function handleFilter(e) {
+    e.preventDefault();
+    const { value } = e.target;
+    dispatch(filter(value));
+  }
+  function resetBtn() {
+    dispatch(reset());
+  }
+  useEffect(() => {
+  // onClose()
+  }, [dogs])
   return (
     <div className={styles.home}>
       <div>
         <h1>Dogs</h1>
+        <select onChange={handleOrder} name="order" defaultValue={"Default"}>
+        <option value="Default" disabled>
+          Select Order
+        </option>
+        <option value="Ascendente">Ascendente</option>
+        <option value="Descendente">Descendente</option>
+      </select>
+
+      <select onChange={handleFilter} name="filter" defaultValue={"Default"}>
+        <option value="Default" disabled>
+          Select Filter
+        </option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Genderless">Genderless</option>
+        <option value="unKnown">unKnown</option>
+      </select>
+
+      <button onClick={resetBtn}>Reset</button>
         <input
           onChange={handleChange}
           type="search"
@@ -63,70 +102,57 @@ const Home = () => {
         </button>
       </div>
       <div>
-        {localDogs &&
-          localDogs
-            .map(
-              ({
-                weight,
-                height,
-                id,
-                name,
-                bred_for,
-                breed_group,
-                life_span,
-                origin,
-                image,
-              }) => {
-                return (
-                  <CardDog
-                    key={id}
-                    weight={weight}
-                    height={height}
-                    id={id}
-                    name={name}
-                    bred_for={bred_for}
-                    breed_group={breed_group}
-                    life_span={life_span}
-                    origin={origin}
-                    image={image}
-                  />
-                );
+     
+          { !loading ?(localDogs &&
+            localDogs
+              .map(
+                ({
+                  
+                  id,
+                  name,
+                  bred_for,
+                  image,
+                }) => {
+                  return (
+                    <CardDog
+                      key={id}                     
+                      id={id}
+                      name={name}
+                      bred_for={bred_for}
+                      image={image.url}
+                    />
+                  );
+                }
+              )
+              .reverse() ):(<div>loading...</div> )
               }
-            )
-            .reverse()}
+       
       </div>
       <div>
-        {dogs &&
-          dogs
-            .map(
-              ({
-                weight,
-                height,
-                id,
-                name,
-                bred_for,
-                breed_group,
-                life_span,
-                origin,
-                image,
-              }) => {
-                return (
-                  <CardDog
-                    key={id}
-                    weight={weight}
-                    height={height}
+        
+          {dogs &&
+            dogs
+              .map(
+                ({
+                  
+                  id,
+                  name,
+                  bred_for,
+                  image,
+                }) => {
+                  return (
+                    <CardDog
+                    key={id}                     
                     id={id}
                     name={name}
                     bred_for={bred_for}
-                    breed_group={breed_group}
-                    life_span={life_span}
-                    origin={origin}
-                    image={image}
-                  />
-                );
-              }
-            )
-            .reverse()}
+                    image={image.url}
+                    />
+                  );
+                }
+              )
+              .reverse()}
+       
       </div>
     </div>
   );
