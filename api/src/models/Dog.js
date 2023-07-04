@@ -35,10 +35,6 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: true,
     },
-    temperament: {
-      type: DataTypes.JSON,
-      allowNull: true,
-    },
     origin: {
       type: DataTypes.STRING,
       allowNull: true,
@@ -51,5 +47,9 @@ module.exports = (sequelize) => {
       type: DataTypes.JSONB,
       allowNull: true,
     },
+    temperaments:{
+      type:DataTypes.ARRAY(DataTypes.JSON) ,
+      allowNull:true
+    }
   });
 };
