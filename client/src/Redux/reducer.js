@@ -1,8 +1,9 @@
-import { ADD_DATA, ADD_HOME, REMOVE_DATA, REMOVE_HOME } from "./actionsTypes";
+import { ADD_DATA, ADD_HOME, FILTER, ORDER, REMOVE_DATA, REMOVE_HOME, RESET } from "./actionsTypes";
 
 const initialState = {
   home: [],
-  data: [],
+  homeOrigin:[],
+  data: []
 };
 
 export default function rootReducer(state = initialState, { type, payload }) {
@@ -11,6 +12,7 @@ export default function rootReducer(state = initialState, { type, payload }) {
       return {
         ...state,
         home: [...state.home, payload],
+        homeOrigin:[...state.home, payload]
       };
 
     case REMOVE_HOME:
@@ -18,8 +20,35 @@ export default function rootReducer(state = initialState, { type, payload }) {
       return {
         ...state,
         home: filterHome,
+        homeOrigin: filterHome
       };
-
+      case FILTER:
+      const newFilter = state.home.filter(
+        (item) => item.name === payload
+      );
+      return {
+        ...state,
+        home: newFilter,
+      };
+    case ORDER:
+      const newOrder = state.homeOrigin.sort((a, b) => {
+        if (a.id > b.id) {
+          return "Ascendente" === payload ? 1 : -1;
+        }
+        if (a.id < b.id) {
+          return "Descendente" === payload ? 1 : -1;
+        }
+        return 0;
+      });
+      return {
+        ...state,
+        myFavorites: newOrder,
+      };
+    case RESET:
+      return {
+        ...state,
+        home: [...state.homeOrigin],
+      };
     case ADD_DATA:
       return {
         ...state,
