@@ -2,8 +2,8 @@
     display: flex;
     flex-direction:column ;
     margin: 1%;
-    line-height: 0.1;
-    min-height: 90vh;
+    line-height: 0.5;
+    min-height: 100vh;
     justify-content: center;
     background-image: radial-gradient(rgb(0,225,255),rgb(0,122,254),rgb(0,255,014));
 }
@@ -13,6 +13,10 @@
 }
 .img{
     
-    width: 100%;
+    width: 90%;
     height: auto;
+}
+.img :hover{
+    
+    filter: saturate(170%)
 }

@@ -1,11 +1,14 @@
 .inicio{
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 100%;
     min-height: 100vh;
+    background-size: contain; 
     background-image:  linear-gradient(rgba(0, 0, 255, 0.5), rgba(255, 255, 0, 0.5)),
-     url('../../../dogs.jpg');
+     url('../Assets/puppy-g1c4f76ca8_1920.jpg');
+  
 }
 .button{
     width: 10rem;
@@ -19,3 +22,10 @@
 .button:hover {
     background: rgb(106, 49, 128);
   }
+@media screen and (min-device-width: 300px) and (max-device-width: 768px){
+    .inicio{
+        background-size: contain; 
+        background-image:  linear-gradient(rgba(0, 0, 255, 0.5), rgba(255, 255, 0, 0.5)),
+     url('../Assets/puppy-g1c4f76ca8_1920.jpg');   
+    }
+}
