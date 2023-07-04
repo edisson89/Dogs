@@ -139,13 +139,12 @@ Deberás crear dos modelos para tu base de datos. Una será para las razas de pe
 Para esta parte deberás construir un servidor utilizando **NodeJS** y **Express**. Tendrás que conectarlo con tu base de datos mediante **Sequelize**.
 
 Tu servidor deberá contar con las siguientes rutas:
-http://localhost:3001/dogdata/dogs/dogs
+http://localhost:3001/dogdata/dogs
 #### **📍 GET | /dogs**
-
 -  Obtiene un arreglo de objetos, donde cada objeto es la raza de un perro.
+
 http://localhost:3001/dogdata/dogs/:idRaza
 #### **📍 GET | /dogs/:idRaza**
-
 -  Esta ruta obtiene el detalle de una raza específica. Es decir que de 
 -  La raza es recibida por parámetro (ID).
 -  Tiene que incluir los datos de los temperamentos asociadas a esta raza.
@@ -153,7 +152,6 @@ http://localhost:3001/dogdata/dogs/:idRaza
 
 http://localhost:3001/dogdata/dogs/name
 #### **📍 GET | /dogs/name?="..."**
-
 -  Esta ruta debe obtener todas aquellas razas de perros que coinciden con el nombre recibido por query. (No es necesario que sea una coincidencia exacta).
 -  Debe poder buscarlo independientemente de mayúsculas o minúsculas.
 -  Si no existe la raza, debe mostrar un mensaje adecuado.
@@ -192,9 +190,9 @@ Se debe desarrollar una aplicación utilizando **React** y **Redux** que conteng
 
 -  SearchBar: un input de búsqueda para encontrar razas de perros por nombre.
 -  Sector en el que se vea un listado de cards con los perros. Al iniciar deberá cargar los primeros resultados obtenidos desde la ruta **`GET /dogs`** y deberá mostrar su:
-   -  Imagen.
-   -  Nombre.
-   -  Temperamentos.
+      -  Imagen.
+      -  Nombre.
+      -  Temperamentos.
    -  Peso.
 -  Cuando se le hace click a una Card deberá redirigir al detalle de esa raza específica.
 -  Botones/Opciones para **filtrar** por temperamentos, y por si su origen es de la API o de la base de datos (creados por nosotros desde el formulario).
