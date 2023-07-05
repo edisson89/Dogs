@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import styles from "./home.module.css";
 import axios from "axios";
 import { addData, addHome, filter, order, reset } from "../Redux/actions.js";
@@ -31,7 +31,7 @@ const Home = () => {
         dispatch(addData(data.result));
         setLoading(false)
       } catch (error) {
-        alert(error);
+        console(error);
       }
     }
     onData();
@@ -39,19 +39,20 @@ const Home = () => {
   }, [localDogs, dispatch]);
 
   //Add dogs to home por id
-  async function onSearch(id) {
+  const onSearch = useCallback(async(id) =>{
     try {
-      let { data } = await axios.get(
+      const { data } = await axios.get(
         `http://localhost:3001/dogdata/dogs/${id}`
       );
-        console.log(data.dbDog)
+      
       dispatch(addHome(data.dbDog));
     } catch (error) {
-      alert(error);
+      console.log(error);
     }
-  }
-  
-  function handleOrder(e) {
+  },[dispatch]);
+
+ 
+ const handleOrder = (e) =>{
     e.preventDefault();
     const { value } = e.target;
     dispatch(order(value));
@@ -64,30 +65,30 @@ const Home = () => {
   function resetBtn() {
     dispatch(reset());
   }
-  useEffect(() => {
-  // onClose()
-  }, [dogs])
+  useEffect((id) => {
+    onSearch(id)
+   }, [dogs,localDogs,onSearch,dispatch])
+   
   return (
     <div className={styles.home}>
       <div>
         <h1>Dogs</h1>
         <select onChange={handleOrder} name="order" defaultValue={"Default"}>
         <option value="Default" disabled>
-          Select Order
+          Select Order 
         </option>
-        <option value="Ascendente">Ascendente</option>
-        <option value="Descendente">Descendente</option>
+        <option value="Ascendent">Ascendent</option>
+        <option value="Descendent">Descendent</option>
       </select>
 
-      <select onChange={handleFilter} name="filter" defaultValue={"Default"}>
-        <option value="Default" disabled>
-          Select Filter
-        </option>
-        <option value="Male">Male</option>
-        <option value="Female">Female</option>
-        <option value="Genderless">Genderless</option>
-        <option value="unKnown">unKnown</option>
-      </select>
+        <select onChange={handleFilter} name="filter" defaultValue={"Default"}>
+          <option value="Default" disabled>
+            Select Filter
+          </option>
+          <option value="name">Name</option>
+          <option value="weigth">Weight</option>
+          <option value="origin">Origin</option>
+        </select>
 
       <button onClick={resetBtn}>Reset</button>
         <input
@@ -139,6 +140,7 @@ const Home = () => {
                   name,
                   bred_for,
                   image,
+                  weight
                 }) => {
                   return (
                     <CardDog
@@ -147,6 +149,7 @@ const Home = () => {
                     name={name}
                     bred_for={bred_for}
                     image={image.url}
+                    weight={weight}
                     />
                   );
                 }
