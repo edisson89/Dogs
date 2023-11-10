@@ -6,7 +6,7 @@ const userPost = require('../controllers/userPost')
 const userUpdate = require('../controllers/userUpdate')
 const userDelete= require('../controllers/deleteUser')
 
-routerUser.get("/get", userGet);
+routerUser.post("/get", userGet);
 routerUser.post("/create", userPost);
 routerUser.put("/update", userUpdate);
 routerUser.delete("/delete", userDelete);
