@@ -1,5 +1,6 @@
 import {
   ADD_DATA,
+  ADD_DB,
   ADD_HOME,
   FILTER,
   ORDER,
@@ -34,8 +35,8 @@ export default function rootReducer(state = initialState, { type, payload }) {
     case FILTER:
       const newFilter = state.homeOrigin.slice().sort((a, b) => {
         if (payload === "name") {
-          const nameA = a.name.toLowerCase();
-          const nameB = b.name.toLowerCase();
+          const nameA = a.name.toLowerCase(a);
+          const nameB = b.name.toLowerCase(b);
 
           if (nameA < nameB) {
             return payload === "Ascendent" ? -1 : 1;
@@ -47,8 +48,8 @@ export default function rootReducer(state = initialState, { type, payload }) {
         }
 
         if (payload === "weigth") {
-          const nameA = a.name.toLowerCase();
-          const nameB = b.name.toLowerCase();
+          const nameA = a.origin?.split(' , ')[0].toLowerCase();
+          const nameB = b.origin?.split(' , ')[0].toLowerCase();
 
           if (nameA < nameB) {
             return payload === "weigth" ? -1 : 1;
@@ -103,6 +104,7 @@ export default function rootReducer(state = initialState, { type, payload }) {
       return {
         ...state,
         data: payload,
+        home: payload
       };
 
     case REMOVE_DATA:
@@ -111,6 +113,12 @@ export default function rootReducer(state = initialState, { type, payload }) {
         ...state,
         data: filterData,
       };
+      case ADD_DB:
+      
+        return {
+          ...state,
+          home: [...state.home,payload],
+        };
 
     default:
       return {
