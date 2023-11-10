@@ -4,20 +4,21 @@ const { Dog } = require("../db");
 const { api_key } = process.env;
 
 const URL = `https://api.thedogapi.com/v1/breeds/?api_key=${api_key}`;
-async function getDogData(req, res) {
-  
+
+async function getDogData() {
   try {
     const { data } = await axios.get(URL);
-    const result = await data.slice(0,20);
+    const result = await data.slice(0, 20);
+    
     if (result) {
       
-      // Guarda los datos en la base de datos utilizando Sequelize
-     
-      await Dog.bulkCreate(result);
-      return res.status(200).json({ result });
+      // await Dog.bulkCreate(result);
+      //return res.status(200).json({ result });
+      return { result };
     }
+    throw new error("The data exist already");
   } catch (error) {
-    (error) => res.status(500).json({ error: error.message });
+    return error;
   }
 }
 module.exports = getDogData;
