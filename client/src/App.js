@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import styles from "./App.module.css";
 import Login from "./Login";
 import Nav from "./Nav";
@@ -9,23 +9,38 @@ import Detail from "./Detail";
 import About from "./About";
 import Favorites from "./Favorites/favorites";
 import Inicio from "./Inicio";
+import axios from "axios";
+import Register from "./Register";
 
 function App() {
   const [access, setAccess] = useState(true);
-  const PASSWORD = "Testing123*";
-  const EMAIL = "ejemplo123@gmail.com";
+  const [isRegisterVisible, setRegisterVisible] = useState(false);
 
-  const location = useLocation();
   const navigate = useNavigate();
 
-  function login(input) {
-    if (input.password === PASSWORD && input.email === EMAIL) {
-      setAccess(true);
-      navigate("/home");
-      return alert("Ingreso Correcto");
+  async function register(input) {
+    const { data } = await axios.post(
+      "http://localhost:3001/user/create",
+      input
+    );
+
+    if (data.email && data.password) {
+      
+      return alert("Your user was registered");
     }
-    return alert("Corrige tus datos");
+    return alert("Error change your dates");
   }
+
+    async function login(input) {
+      const { data } = await axios.post("http://localhost:3001/user/get/", input);
+      if (data.user === 'validated') {
+        
+        setAccess(true);
+        navigate("/inicio");
+        return alert("Ingreso Correcto");
+      }
+      return alert("Corrige tus datos");
+    }
 
   function logout() {
     setAccess(false);
@@ -34,23 +49,39 @@ function App() {
 
   useEffect(() => {
     !access && navigate("/");
-  }, [access, navigate]);
+  }, [access, navigate, isRegisterVisible]);
 
   return (
     <div className={styles.App}>
-      {location.pathname !== "/" ? (
-        <Nav logout={logout} />
-      ) : (
-        <Login login={login} />
-      )}
-
+      <Nav logout={logout} />
       <Routes>
-      <Route path="/inicio" element={<Inicio />}></Route>
-        <Route path="/home" element={<Home />}></Route>
-        <Route path="/form" element={<Form />}></Route>
-        <Route path="/about" element={<About />}></Route>
-        <Route path="/detail/:id" element={<Detail />}></Route>
-        <Route path="/favorites" element={<Favorites />}></Route>
+        <Route path="/register" element={<Register />}></Route>
+        {access ? (
+          <>
+            <Route path="/inicio" element={<Inicio />}></Route>
+            <Route path="/home" element={<Home />}></Route>
+            <Route path="/form" element={<Form />}></Route>
+            <Route path="/about" element={<About />}></Route>
+            <Route path="/detail/:id" element={<Detail />}></Route>
+            <Route path="/favorites" element={<Favorites />}></Route>
+          </>
+        ) : (
+          <>
+            {isRegisterVisible && (
+              <Route path="/" element={<Register register={register}  setRegisterVisible={setRegisterVisible}/>} />
+            )}
+            <Route
+              path="/"
+              element={
+                <Login
+                  login={login}
+                  isRegisterVisible={isRegisterVisible}
+                  setRegisterVisible={setRegisterVisible}
+                />
+              }
+            ></Route>
+          </>
+        )}
       </Routes>
 
       <hr />
@@ -59,3 +90,4 @@ function App() {
 }
 
 export default App;
+
