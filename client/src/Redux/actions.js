@@ -1,5 +1,36 @@
-import { ADD_DATA, ADD_HOME, FILTER, ORDER, REMOVE_DATA, REMOVE_HOME, RESET } from "./actionsTypes.js";
-//import axios from "axios"
+import axios from "axios";
+import {
+  ADD_DATA,
+  ADD_DB,
+  ADD_HOME,
+  ADD_USER,
+  FILTER,
+  ORDER,
+  REMOVE_DATA,
+  REMOVE_HOME,
+  REMOVE_USER,
+  RESET,
+  UPDATE_USER,
+} from "./actionsTypes.js";
+
+export function addUser(id) {
+  return {
+    type: ADD_USER,
+    payload: id,
+  };
+}
+export function removeUser(id) {
+  return {
+    type:   REMOVE_USER,
+    payload: id,
+  };
+}
+export function updateUser(id) {
+  return {
+    type:   UPDATE_USER,
+    payload: id,
+  };
+}
 
 export function addHome(id) {
   return {
@@ -41,6 +72,42 @@ export function filter(name) {
 export function reset() {
   return {
     type: RESET,
+  };
+}
+export function addDb(form) {
+  let id = 1000;
+  id++;
+  const formId = {
+    ...form,
+    id,
+  };
+  const queryString = Object.keys(formId)
+    .map((key) => {
+      if (typeof form[key] === "object") {
+        return Object.keys(form[key])
+          .map(
+            (subKey) =>
+              `${encodeURIComponent(`${key}[${subKey}]`)}=${encodeURIComponent(
+                form[key][subKey]
+              )}`
+          )
+          .join("&");
+      } else {
+        return `${encodeURIComponent(key)}=${encodeURIComponent(form[key])}`;
+      }
+    })
+    .join("&");
+    
+  return async function (dispatch) {
+   
+    const { data } = await axios.post(
+      `http://localhost:3001/dogdata/dogs?${queryString}`
+    );
+    console.log(data)
+    return dispatch({
+      type: ADD_DB,
+      payload: data,
+    });
   };
 }
 /*
