@@ -1,8 +1,14 @@
 import React, { useState } from "react";
-import styles from './form.module.css'
+import styles from "./form.module.css";
+import { useDispatch } from "react-redux";
+import { addDb } from "../Redux/actions";
+
 
 const Form = () => {
+  const dispatch = useDispatch();
+
   const [form, setForm] = useState({
+     id : 1000,
     height: {
       metric: "",
       imperial: "",
@@ -14,7 +20,7 @@ const Form = () => {
     life_spa: "",
     name: "",
   });
-  const [error, setError] = useState({
+  const [errors, setErrors] = useState({
     height: {
       metric: "",
       imperial: "",
@@ -27,37 +33,45 @@ const Form = () => {
     name: "",
   });
 
-  function validate(input) {
+  function validate(form) {
     const error = {};
 
-    // if (!input.email) {
-    //   error.email = "Debe haber un Email";
-    // } else if (!input.password) {
-    //   error.password = "Debe haber un Password";
-    // } else if (!regexEmail.test(input.email)) {
-    //   error.email = "Debe haber un Email valido";
-    // } else if (!regexPassword.test(input.password)) {
-    //   error.password = "Debe haber un Password valido";
-    // }
+    if (!form.life_spa) {
+      error.life_spa = "Add a valid lifee_spa must not be null";
+    } else if (!form.name) {
+      error.name = "Add a valid date.Name must not be null";
+    }
     return error;
   }
 
   const handleChange = (e) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value,
-    });
-    setError(
-      validate({
-        ...form,
-        [e.target.name]: e.target.value,
-      })
-    );
+   
+    e.preventDefault();
+    const { name, value } = e.target;
+    setForm((prevForm) => ({
+      ...prevForm,
+      [name]: value,
+
+      // height: {
+      //   ...prevForm.height,
+      //   [name]: name === "height" ? value : prevForm.height[name],
+      // },
+      // weight: {
+      //   ...prevForm.weight,
+      //   [name]: name === "weight" ? value : prevForm.weight[name],
+      // },
+    }));
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: "",
+    }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const aux = Object.keys(error);
+    const validationErrors = validate(errors);
+    
+    const aux = Object.keys(validationErrors);
     if (aux.length === 0) {
       setForm({
         height: {
@@ -71,7 +85,7 @@ const Form = () => {
         life_spa: "",
         name: "",
       });
-      setError({
+      setErrors({
         height: {
           metric: "",
           imperial: "",
@@ -83,53 +97,55 @@ const Form = () => {
         life_spa: "",
         name: "",
       });
-      // return login(input);
+      //add redux
+        dispatch(addDb(form))
     }
-
+     
     return alert("Error");
   };
   return (
-    <div className  ={styles.form}>
+    <div className={styles.form}>
       <h1>FORM BREEDS</h1>
       <form onSubmit={handleSubmit}>
         <label>Height Metric</label>
         <input
           value={form.height.metric}
           onChange={handleChange}
-          name="form.height.metric"
-          defaultValue={"Default"}
+          name="height"
           placeholder="13 - 28"
         />
+        
+       
+
         <br></br>
 
         <label>Height Imperial</label>
 
         <input
-          name="imperial"
+          name="height"
           value={form.height.imperial}
           onChange={handleChange}
           placeholder="15 - 28"
         />
-         <br></br>
+        <br></br>
 
         <label>Weight Metric</label>
         <input
           value={form.weight.metric}
           onChange={handleChange}
-          name="form.weight.metric"
+          name="weight"
           placeholder="53 - 88"
-          defaultValue={"Default"}
         />
-         <br></br>
-         <label>Weight Imperial</label>
+        <br></br>
+        <label>Weight Imperial</label>
 
         <input
-          name="imperial"
+          name="weight"
           value={form.weight.imperial}
           placeholder="18 - 29"
           onChange={handleChange}
         />
-         <br></br>
+        <br></br>
 
         <label>Life Spa</label>
         <input
@@ -138,17 +154,18 @@ const Form = () => {
           placeholder="10 - 13 years"
           onChange={handleChange}
         />
-         <br></br>
+        <br></br>
 
         <label>name</label>
         <input
-          name="name" 
+          name="name"
           value={form.name}
           placeholder="name"
           onChange={handleChange}
         />
 
-      <br></br>
+        <br></br>
+        {errors.name && <div>{errors.name}</div>}
         <button type="submit">Add breed</button>
       </form>
     </div>
