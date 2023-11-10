@@ -22,8 +22,20 @@ button{
     border-radius: 5px;
     padding: 0.3rem;
     margin: 1%;
+    box-shadow: 2px 2px 2px 1px rgba(255, 255, 125, 0.2);
+    width: 30%;
+    height: inherit;
 }
 button:hover{
     opacity: 0.8;
     background-color: rgb(151, 176, 81); 
+}
+.error{
+  color: red;
+}
+@media screen and ( min-device-witdh: 300)and(max-device-width : 600) {
+  button{
+    width: 60%;
+   
+  }
 }

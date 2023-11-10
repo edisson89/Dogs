@@ -1,0 +1,12 @@
+.login{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-image: radial-gradient(rgb(0,225,255),rgb(34, 120, 177),rgb(0,209,030));
+    min-height: 100vh;
+}
+.btnRegister{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}  

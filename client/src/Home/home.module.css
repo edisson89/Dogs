@@ -1,6 +1,42 @@
 .home{
     display: flex;
     flex-direction: column;
-    min-height: 90vh;
+    min-height: 100vh;
     
+}
+.homespin{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-content: center;  
+    align-items: stretch;
+    align-self: center;
+    min-height: 100vh;
+}
+.spinner {
+    border: 5px solid rgba(0, 0, 0, .1);
+    border-left-color: rgb(209, 228, 209);
+    width: 30px;
+    height: 30px;
+    
+    animation: spin 1s linear infinite;
+  }
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+  
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+@media screen and ( min-device-witdh: 300)and(max-device-width : 600) {
+    .home{
+        display: flex;
+        flex-direction: column;
+        min-height: 50vh;
+        
+    }
 }

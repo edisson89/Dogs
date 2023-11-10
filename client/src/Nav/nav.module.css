@@ -17,9 +17,10 @@
   );
 
 }
-navlink{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+.navlink{
    
+    border-radius: 5px;
+    padding: 0.3rem;
+    margin: 1%;
+    width: 100%;
 }
